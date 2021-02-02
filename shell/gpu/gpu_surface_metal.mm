@@ -65,6 +65,7 @@ std::unique_ptr<SurfaceFrame> GPUSurfaceMetal::AcquireFrameFromCAMetalLayer(
   }
 
   ReleaseUnusedDrawableIfNecessary();
+<<<<<<< HEAD
   sk_sp<SkSurface> surface =
       SkSurface::MakeFromCAMetalLayer(context_.get(),            // context
                                       layer,                     // layer
@@ -75,6 +76,23 @@ std::unique_ptr<SurfaceFrame> GPUSurfaceMetal::AcquireFrameFromCAMetalLayer(
                                       nullptr,                   // surface properties
                                       &next_drawable_            // drawable (transfer out)
       );
+=======
+
+  // When there are platform views in the scene, the drawable needs to be presented in the same
+  // transaction as the one created for platform views. When the drawable are being presented from
+  // the raster thread, there is no such transaction.
+  layer_.get().presentsWithTransaction = [[NSThread currentThread] isMainThread];
+
+  auto surface = SkSurface::MakeFromCAMetalLayer(context_.get(),            // context
+                                                 layer_.get(),              // layer
+                                                 kTopLeft_GrSurfaceOrigin,  // origin
+                                                 1,                         // sample count
+                                                 kBGRA_8888_SkColorType,    // color type
+                                                 nullptr,                   // colorspace
+                                                 nullptr,                   // surface properties
+                                                 &next_drawable_  // drawable (transfer out)
+  );
+>>>>>>> upstream/flutter-1.17-candidate.3
 
   if (!surface) {
     FML_LOG(ERROR) << "Could not create the SkSurface from the CAMetalLayer.";

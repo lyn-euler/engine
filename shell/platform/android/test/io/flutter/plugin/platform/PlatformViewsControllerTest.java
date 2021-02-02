@@ -93,7 +93,10 @@ public class PlatformViewsControllerTest {
     verify(fakeVdController2, times(1)).onFlutterViewDetached();
   }
 
+<<<<<<< HEAD
   @Ignore
+=======
+>>>>>>> upstream/flutter-1.17-candidate.3
   @Test
   public void itCancelsOldPresentationOnResize() {
     // Setup test structure.
@@ -115,6 +118,7 @@ public class PlatformViewsControllerTest {
     assertEquals(fakeVdController1.presentation != presentation, true);
     assertEquals(presentation.isShowing(), false);
   }
+<<<<<<< HEAD
 
   @Test
   public void itUsesActionEventTypeFromFrameworkEventForVirtualDisplays() {
@@ -661,4 +665,6 @@ public class PlatformViewsControllerTest {
       return holder;
     }
   }
+=======
+>>>>>>> upstream/flutter-1.17-candidate.3
 }
